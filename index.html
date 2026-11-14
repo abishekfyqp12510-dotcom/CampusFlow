@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="CampusFlow - organise your timetable, assignments, attendance, notes and exams.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="CampusFlow">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>CampusFlow - Student Life Manager</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Login / Register -->
+<section id="auth" class="auth hidden">
+  <form class="authbox" id="authForm" novalidate>
+    <div class="brand">CAMPUS<span>FLOW</span><br><small>Student Life Manager</small></div>
+    <h1 id="authTitle">Welcome back</h1>
+    <p class="muted" id="authSub">Sign in to manage your student life.</p>
+
+    <div id="registerName" class="field hidden">
+      <label for="nameInput">Full name</label>
+      <input id="nameInput" autocomplete="name" placeholder="Your name">
+    </div>
+
+    <div class="field">
+      <label for="emailInput">Email</label>
+      <input id="emailInput" type="email" autocomplete="email" placeholder="student@example.com">
+    </div>
+
+    <div class="field">
+      <label for="passwordInput">Password</label>
+      <input id="passwordInput" type="password" autocomplete="current-password" placeholder="At least 4 characters">
+    </div>
+
+    <button type="submit" class="full" id="authBtn">Login</button>
+
+    <p class="small muted center">
+      <span id="switchText">New here?</span>
+      <a href="#" id="switchAuth">Create an account</a>
+    </p>
+    <p class="small muted">Demo note: your data is saved in this browser on this device.</p>
+  </form>
+</section>
+
+<!-- Main app -->
+<div id="app" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand">CAMPUS<span>FLOW</span></div>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <button data-page="dashboard" class="active"><span class="icon" aria-hidden="true">&#8962;</span><span class="label">Dashboard</span></button>
+      <button data-page="timetable"><span class="icon" aria-hidden="true">&#9638;</span><span class="label">Timetable</span></button>
+      <button data-page="planner"><span class="icon" aria-hidden="true">&#10022;</span><span class="label">Study planner</span></button>
+      <button data-page="assignments"><span class="icon" aria-hidden="true">&#10003;</span><span class="label">Assignments</span></button>
+      <button data-page="attendance"><span class="icon" aria-hidden="true">&#9719;</span><span class="label">Attendance</span></button>
+      <button data-page="notes"><span class="icon" aria-hidden="true">&#9636;</span><span class="label">Notes</span></button>
+      <button data-page="exams"><span class="icon" aria-hidden="true">&#8987;</span><span class="label">Exams</span></button>
+      <button data-page="progress"><span class="icon" aria-hidden="true">&#9637;</span><span class="label">Progress</span></button>
+    </nav>
+    <div class="user">
+      <div id="sideName"></div>
+      <div class="small" id="sideEmail"></div>
+      <button class="secondary full" id="logout">Log out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="welcome"></p>
+      </div>
+      <div class="small muted" id="today"></div>
+    </header>
+    <div id="content"></div>
+  </main>
+</div>
+
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+<script>
+  // Register the offline service worker (needed for install and offline use)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(err =>
+        console.warn('Service worker registration failed:', err)
+      );
+    });
+  }
+</script>
+</body>
+</html>
